@@ -9,11 +9,10 @@ from pygments.lexers.data import JsonLexer, YamlLexer
 from pygments.lexers.html import HtmlLexer, XmlLexer
 from pygments.formatters.terminal256 import TerminalTrueColorFormatter
 from pygments.formatters.terminal import TerminalFormatter
-from .utils import out, err
+from .utils import out, err, by_key_lower
 
 
-def send_request(req):
-    return request(**req)
+def send_request(req): return request(**req)
 
 
 def output_formatted(res):
@@ -33,7 +32,7 @@ def output_formatted(res):
 def handle_metadata_out(res):
     metadata = []
     metadata.append(f"Status: {res.status_code}")
-    for k, v in sorted(res.headers.items(), key=lambda x: x[0].lower()):
+    for k, v in sorted(res.headers.items(), key=by_key_lower):
         metadata.append(f"{k}: {v}")
 
     text = "\n".join(metadata)
