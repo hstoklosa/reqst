@@ -9,7 +9,7 @@ from pygments.lexers.data import JsonLexer, YamlLexer
 from pygments.lexers.html import HtmlLexer, XmlLexer
 from pygments.formatters.terminal256 import TerminalTrueColorFormatter
 from pygments.formatters.terminal import TerminalFormatter
-from .utils import out, err, by_key_lower
+from .utils import bout, out, err, by_key_lower
 
 
 def send_request(req): return request(**req)
@@ -25,8 +25,10 @@ def output_formatted(res):
         handle_xml_out(res.text)
     elif content_type.startswith("text/html"):
         handle_html_out(res.text)
-    else:
+    elif content_type.startswith("text"):
         handle_plain_out(res.text)
+    else:
+        handle_binary_out(res.content)
 
 
 def handle_metadata_out(res):
@@ -39,6 +41,10 @@ def handle_metadata_out(res):
     if sys.stderr.isatty():
         text = highlight(text, YamlLexer(), TerminalTrueColorFormatter())
     err(text)
+
+
+def handle_binary_out(content):
+    bout(content)
 
 
 def handle_json_out(text):
