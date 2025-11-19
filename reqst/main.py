@@ -4,12 +4,20 @@ import yaml
 from functools import partial
 from requests.api import request
 from lxml import etree, html
-from pygments import highlight
-from pygments.lexers.data import JsonLexer, YamlLexer
-from pygments.lexers.html import HtmlLexer, XmlLexer
-from pygments.formatters.terminal256 import TerminalTrueColorFormatter
-from pygments.formatters.terminal import TerminalFormatter
 from .utils import bout, out, err, by_key_lower
+
+
+STDOUT_STAYS_ON_TERMINAL = sys.stdout.isatty()
+STDERR_STAYS_ON_TERMINAL = sys.stderr.isatty()
+
+# Use colors only on terminal and NOT on file
+# (i.e. don't import if both are redirected to files)
+if STDOUT_STAYS_ON_TERMINAL or STDERR_STAYS_ON_TERMINAL:
+    from pygments import highlight
+    from pygments.lexers.data import JsonLexer, YamlLexer
+    from pygments.lexers.html import HtmlLexer, XmlLexer
+    from pygments.formatters.terminal256 import TerminalTrueColorFormatter
+    from pygments.formatters.terminal import TerminalFormatter
 
 
 def send_request(req): return request(**req)
