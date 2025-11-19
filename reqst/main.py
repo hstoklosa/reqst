@@ -11,7 +11,7 @@ STDOUT_STAYS_ON_TERMINAL = sys.stdout.isatty()
 STDERR_STAYS_ON_TERMINAL = sys.stderr.isatty()
 
 # Use colors only on terminal and NOT on file
-# (i.e. don't import if both are redirected to files)
+# i.e. don't import if both are redirected to files
 if STDOUT_STAYS_ON_TERMINAL or STDERR_STAYS_ON_TERMINAL:
     from pygments import highlight
     from pygments.lexers.data import JsonLexer, YamlLexer
@@ -24,64 +24,64 @@ def send_request(req): return request(**req)
 
 
 def output_formatted(res):
+    handle_metadata_output(res)
+    
     content_type = res.headers.get("content-type", "")
-    handle_metadata_out(res)
-
     if content_type.startswith("application/json"):
-        handle_json_out(res.text)
+        handle_json_output(res.text)
     elif content_type.startswith("text/xml"):
-        handle_xml_out(res.text)
+        handle_xml_output(res.text)
     elif content_type.startswith("text/html"):
-        handle_html_out(res.text)
+        handle_html_output(res.text)
     elif content_type.startswith("text"):
-        handle_plain_out(res.text)
+        handle_plain_output(res.text)
     else:
-        handle_binary_out(res.content)
+        handle_binary_output(res.content)
 
 
-def handle_metadata_out(res):
+def handle_metadata_output(res):
     metadata = []
     metadata.append(f"Status: {res.status_code}")
     for k, v in sorted(res.headers.items(), key=by_key_lower):
         metadata.append(f"{k}: {v}")
-
     text = "\n".join(metadata)
-    if sys.stderr.isatty():
+
+    if STDOUT_STAYS_ON_TERMINAL:
         text = highlight(text, YamlLexer(), TerminalTrueColorFormatter())
     err(text)
 
 
-def handle_binary_out(content):
-    bout(content)
-
-
-def handle_json_out(text):
+def handle_json_output(text):
     text = json.dumps(json.loads(text), indent=4)
-    if sys.stdout.isatty():
+    if STDOUT_STAYS_ON_TERMINAL:
         text = highlight(text, JsonLexer(), TerminalFormatter())
     out(text)
 
 
-def handle_xml_out(text):
+def handle_xml_output(text):
     data = etree.fromstring(text)
     etree.indent(data, space=" "*2)
     text = etree.tostring(data, encoding="unicode")
-    if sys.stdout.isatty():
+    if STDOUT_STAYS_ON_TERMINAL:
         text = highlight(text, XmlLexer(), TerminalFormatter())
     out(text)
 
 
-def handle_html_out(text):
+def handle_html_output(text):
     data = html.fromstring(text)
     etree.indent(data, space=" "*2)
     text = html.tostring(data, encoding="unicode")
-    if sys.stdout.isatty():
+    if STDOUT_STAYS_ON_TERMINAL:
         text = highlight(text, HtmlLexer(), TerminalFormatter())
     out(text)
 
 
-def handle_plain_out(text):
+def handle_plain_output(text):
     out(text)
+
+
+def handle_binary_output(content):
+    bout(content)
 
 
 def read_file(filepath):
