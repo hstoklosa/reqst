@@ -10,7 +10,7 @@ with (HERE / "requirements.txt").open() as f:
 
 setup(
     name="reqst",
-    version="0.0.2",
+    version="0.0.3",
     description="A tool that simplifies sending requests.",
     long_description=README,
     long_description_content_type="text/markdown",

@@ -1,5 +1,6 @@
 import argparse
-from .main import read_file, send_request, output_formatted
+
+from .main import Reqst
 
 
 def parse_args():
@@ -15,6 +16,5 @@ def parse_args():
 
 def main():
     args = parse_args()
-    request = read_file(args.file)
-    response = send_request(request)
-    output_formatted(response)
+    reqst = Reqst()
+    reqst.send_request(args.file)
