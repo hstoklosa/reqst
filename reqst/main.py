@@ -14,6 +14,8 @@ class Reqst:
     Visual = namedtuple("Visual", ["formatter", "colorizer"])
 
     def __init__(self):
+        sys.stdout.reconfigure(encoding='utf-8')
+
         # if output stays on terminal then isatty() returns True
         # if output is redirected to file then isatty() returns False
         self.colorize_stdout: bool = sys.stdout.isatty()
