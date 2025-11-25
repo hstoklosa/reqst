@@ -10,15 +10,15 @@ with (HERE / "requirements.txt").open() as f:
 
 setup(
     name="reqst",
-    version="0.0.3",
-    description="A tool that simplifies sending requests.",
+    version="0.1.0",
+    description="A Python CLI program to send requests.",
     long_description=README,
     long_description_content_type="text/markdown",
     url="https://github.com/hstoklosa/reqst",
     author="hstoklosa",
     author_email="hubert.stoklosa23@gmail.com",
     license="MIT",
-        entry_points={
+    entry_points={
         'console_scripts': [
             'reqst = reqst.__main__:main',
         ],
