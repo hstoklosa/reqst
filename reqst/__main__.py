@@ -1,6 +1,6 @@
 import argparse
 
-from .main import Reqst
+from reqst.client import Reqst
 
 
 def parse_args():
