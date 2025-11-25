@@ -1,6 +1,6 @@
 # reqst
 
-> send requests from a file
+> a python cli program to send requests
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
@@ -40,6 +40,26 @@ reqst "some/folder/myrequest.yml"
 ```sh
 reqst "some/folder/myrequest.json"
 ```
+
+### Disclaimer
+
+sometimes the reqst command doesn't work in windows if the package is installed globally.
+
+to avoid this, install the package in a local virtual env
+
+first, create a env
+
+```sh
+python3 -m venv env_for_reqst
+```
+
+activate that env
+
+```sh
+.\env_for_reqst\Scripts\activate
+```
+
+and then pip install. But you will have to activate that env everytime you want to use reqst.
 
 ## IO Redirection
 
