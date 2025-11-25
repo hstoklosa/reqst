@@ -1,10 +1,21 @@
-# reqst
-
-> a python cli program to send requests
+<div align="center">
+<pre>
+██████╗ ███████╗ ██████╗ ███████╗████████╗
+██╔══██╗██╔════╝██╔═══██╗██╔════╝╚══██╔══╝
+██████╔╝█████╗  ██║   ██║███████╗   ██║   
+██╔══██╗██╔══╝  ██║▄▄ ██║╚════██║   ██║   
+██║  ██║███████╗╚██████╔╝███████║   ██║   
+╚═╝  ╚═╝╚══════╝ ╚══▀▀═╝ ╚══════╝   ╚═╝   
+------------------------------------------
+a python cli program to send requests
+</pre>
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-A Python program that reads a json/yml file for request data and sends the request
+</div>
+
+Is it just me or is curl a little too complicated?
+Want something simpler in life? something made for humans? Try reqst -- A Python program that reads a json/yml file for request data and sends the request
 
 ## Installation
 
@@ -23,22 +34,28 @@ pip install git+https://github.com/hstoklosa/reqst.git
 
 ## Usage example
 
-To get help with commandline arguments
+### To get help with command-line arguments
 
 ```sh
 reqst --help
 ```
 
-Using Command-line Arguments
+### Using command-line arguments
 
 ```sh
-reqst "some/folder/myrequest.yml"
+reqst -f "some/folder/myrequest.yml"
 ```
 
 (or)
 
 ```sh
-reqst "some/folder/myrequest.json"
+reqst -f "some/folder/myrequest.json"
+```
+
+### Colorize Output
+
+```sh
+reqst -f "some/folder/myrequest.yml" -c
 ```
 
 ### Disclaimer
@@ -66,13 +83,13 @@ and then pip install. But you will have to activate that env everytime you want 
 the response is written to stdout and headers/status are written to stderr so that users can take IO redirection to their advantage. This works on windows, linux and mac.
 
 ```sh
-reqst "some/folder/myrequest.yml" > res.json 2> res_headers.txt
+reqst -f "some/folder/myrequest.yml" > res.json 2> res_headers.txt
 ```
 
 both stdout and stderr can be redirected to the same file
 
 ```sh
-reqst "some/folder/myrequest.yml" > res.json 2>&1
+reqst -f "some/folder/myrequest.yml" > res.txt 2>&1
 ```
 
 ## Sample request file (`myrequest.yml`)
@@ -91,7 +108,7 @@ headers:
 timeout: 5000
 ```
 
-#### File Download (`reqst "some/folder/myrequest.yml" > book.pdf`)
+#### File Download (`reqst -f "some/folder/myrequest.yml" > book.pdf`)
 
 ```yaml
 url: http://do1.dr-chuck.com/pythonlearn/EN_us/pythonlearn.pdf
