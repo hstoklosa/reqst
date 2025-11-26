@@ -10,6 +10,7 @@
 a python cli program to send requests
 </pre>
 
+[![PyPI](https://img.shields.io/pypi/v/reqst.svg)](https://pypi.org/project/reqst/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 </div>
@@ -23,13 +24,13 @@ pip install this repo.
 (Note: Incompatible with Python 2.x)
 
 ```sh
-pip3 install git+https://github.com/hstoklosa/reqst.git
+pip3 install reqst
 ```
 
 (or)
 
 ```sh
-pip install git+https://github.com/hstoklosa/reqst.git
+pip install reqst
 ```
 
 ## Usage example
